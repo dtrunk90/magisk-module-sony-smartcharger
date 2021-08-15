@@ -1,6 +1,6 @@
-id=sony-smart-charger
+id=sony-smartcharger
 name=Sony SmartCharger
 version=1.0.0
 versionCode=1
 author=dtrunk90
-description=Sony SmartCharger increases the battery lifespan by reducing the time the device is kept charging over 90%.
+description=!!! LineageOS only !!! Increase the battery lifespan by controlling the charging speed.
