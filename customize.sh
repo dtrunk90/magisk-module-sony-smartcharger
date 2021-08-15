@@ -2,7 +2,7 @@ lineage_platform_res_path="framework/org.lineageos.platform-res.apk"
 tools_path="$MODPATH/tools"
 
 chmod -R 755 "$tools_path"
-alias apktool='ANDROID_DATA="$TMPDIR" ANDROID_ROOT=/system LD_LIBRARY_PATH=/system/lib dalvikvm -cp "$tools_path/apktool_2.5.0-dexed.jar" -Djava.io.tmpdir="$TMPDIR" -Dsun.arch.data.model=64 brut.apktool.Main' # -q
+alias apktool='dalvikvm -cp "$tools_path/apktool_2.5.0-dexed.jar" -Djava.io.tmpdir="$TMPDIR" -Dsun.arch.data.model=64 brut.apktool.Main -q'
 alias xmlstarlet='$tools_path/xmlstarlet'
 alias zipalign='$tools_path/zipalign'
 
@@ -30,25 +30,18 @@ prepare() {
   fi
 }
 
-apktool_if() {
-  apktool if "$1"
-}
-
 apktool_d() {
   apktool d -o "$2" -s "$1"
   test $? != 0 && abort "Decoding APK resources failed. Aborting..."
 }
 
 apktool_b() {
-  apktool b -a "$MODPATH/tools/aapt" -c -o "$2" "$1"
+  apktool b -a "$tools_path/aapt" -c -o "$2" "$1"
   test $? != 0 && abort "Rebuilding APK resources failed. Aborting..."
 }
 
 add_sony_platform_signature() {
   ui_print "- Adding Sony platform signature"
-
-  #apktool_if "$system_path/framework-res.apk"
-  #apktool_if "$system_path/$lineage_platform_res_path"
 
   local resout="$TMPDIR/resout"
 
